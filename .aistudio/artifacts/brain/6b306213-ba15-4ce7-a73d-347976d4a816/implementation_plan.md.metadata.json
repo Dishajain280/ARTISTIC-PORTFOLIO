@@ -1,0 +1,6 @@
+{
+  "summary":  "Architectural blueprint and implementation plan for ATELIER — a professional online presence and structured commission platform for independent artists. Covers data models, public /@handle routing, commission status workflows, Gemini AI assistants, and hackathon demo reliability strategy.",
+  "updatedAt":  "2026-10-07T14:22:44.479815763Z",
+  "requestFeedback":  true,
+  "userFacing":  true
+}
