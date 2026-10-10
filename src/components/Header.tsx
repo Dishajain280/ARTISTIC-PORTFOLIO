@@ -8,6 +8,8 @@ interface HeaderProps {
   onOpenPortfolioBuilder: () => void;
   currency: Currency;
   onCurrencyChange: (c: Currency) => void;
+  theme?: 'dark' | 'light';
+  onToggleTheme?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -17,6 +19,8 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenPortfolioBuilder,
   currency,
   onCurrencyChange,
+  theme = 'dark',
+  onToggleTheme,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
@@ -94,6 +98,20 @@ export const Header: React.FC<HeaderProps> = ({
           >
             <span className="material-symbols-outlined text-[20px]">search</span>
           </button>
+
+          {/* Theme Toggle Button */}
+          {onToggleTheme && (
+            <button
+              onClick={onToggleTheme}
+              className="p-2 text-[#a6a49f] hover:text-[#fbf9f6] transition-colors flex items-center justify-center"
+              title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+              aria-label="Toggle theme"
+            >
+              <span className="material-symbols-outlined text-[20px]">
+                {theme === 'light' ? 'dark_mode' : 'light_mode'}
+              </span>
+            </button>
+          )}
 
           {/* Quiet Currency Trigger */}
           <div className="relative" ref={currencyMenuRef}>

@@ -21,6 +21,19 @@ export default function App() {
   const [selectedArtistId, setSelectedArtistId] = useState<string>('elena-rostova');
   const [selectedArticleId, setSelectedArticleId] = useState<string>('ash-glazes-chemistry');
   const [currency, setCurrency] = useState<Currency>('USD');
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+
+  const toggleTheme = () => {
+    setTheme((prev) => {
+      const next = prev === 'dark' ? 'light' : 'dark';
+      if (next === 'light') {
+        document.body.classList.add('light-mode');
+      } else {
+        document.body.classList.remove('light-mode');
+      }
+      return next;
+    });
+  };
 
   // Modals
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -109,6 +122,8 @@ export default function App() {
         onOpenPortfolioBuilder={() => setIsPortfolioBuilderOpen(true)}
         currency={currency}
         onCurrencyChange={setCurrency}
+        theme={theme}
+        onToggleTheme={toggleTheme}
       />
 
       {/* Main Content Area */}

@@ -239,3 +239,132 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Light Mode Support - Premium Ivory & Warm Espresso Editorial Aesthetic */
+body.light-mode {
+  background-color: #F5F0E8 !important;
+  color: #1A1714 !important;
+}
+
+.light-mode .bg-\[\#121312\],
+.light-mode .bg-\[\#141514\],
+.light-mode .bg-\[\#101110\],
+.light-mode .bg-black {
+  background-color: #F5F0E8 !important;
+}
+
+.light-mode .bg-\[\#171817\],
+.light-mode .bg-\[\#1f201f\],
+.light-mode .bg-\[\#1a1b1a\],
+.light-mode .bg-zinc-900,
+.light-mode .bg-zinc-950\/85,
+.light-mode .bg-zinc-900\/50 {
+  background-color: #ECE5D8 !important;
+}
+
+.light-mode .bg-\[\#232423\],
+.light-mode .bg-\[\#2a2b2a\] {
+  background-color: #E2DACB !important;
+}
+
+.light-mode .text-\[\#fbf9f6\],
+.light-mode .text-\[\#f7f5f0\],
+.light-mode .text-white {
+  color: #1A1714 !important;
+}
+
+.light-mode .text-\[\#a6a49f\],
+.light-mode .text-\[\#a0a39f\],
+.light-mode .text-\[\#c8c5be\],
+.light-mode .text-\[\#8a8882\],
+.light-mode .text-\[\#73716b\],
+.light-mode .text-zinc-400,
+.light-mode .text-zinc-500,
+.light-mode .text-zinc-300 {
+  color: #554D46 !important;
+}
+
+.light-mode header,
+.light-mode footer,
+.light-mode [class*="bg-\[\#121312\]"] {
+  background-color: #F5F0E8 !important;
+}
+
+.light-mode header {
+  background-color: rgba(245, 240, 232, 0.95) !important;
+  border-bottom-color: rgba(26, 23, 20, 0.22) !important;
+}
+
+.light-mode footer {
+  border-top-color: rgba(26, 23, 20, 0.22) !important;
+}
+
+.light-mode .border-white\/\[0\.08\],
+.light-mode .border-white\/10,
+.light-mode .border-white\/20,
+.light-mode .border-zinc-800 {
+  border-color: rgba(26, 23, 20, 0.22) !important;
+}
+
+.light-mode .hover\:bg-\[\#1f201f\]:hover {
+  background-color: #E2DACB !important;
+}
+
+.light-mode .hover\:text-\[\#fbf9f6\]:hover,
+.light-mode .hover\:text-white:hover {
+  color: #1A1714 !important;
+}
+
+/* Museum Gallery Light Mode Enhancements */
+.light-mode input,
+.light-mode textarea,
+.light-mode select {
+  background-color: #ECE5D8 !important;
+  color: #1A1714 !important;
+  border-color: rgba(26, 23, 20, 0.25) !important;
+}
+
+.light-mode input::placeholder,
+.light-mode textarea::placeholder {
+  color: #7A7066 !important;
+}
+
+.light-mode .card,
+.light-mode [class*="bg-zinc-900"],
+.light-mode [class*="bg-zinc-950"] {
+  box-shadow: 0 12px 40px rgba(26, 23, 20, 0.06);
+}
+
+.light-mode .landing-hero {
+  background-color: #121312 !important;
+  color: #fbf9f6 !important;
+}
+
+.light-mode .landing-hero .bg-gradient-to-t {
+  background-image: linear-gradient(to top, #121312, rgba(18, 19, 18, 0.5), rgba(18, 19, 18, 0.3)) !important;
+}
+
+.light-mode .landing-hero .bg-gradient-to-r {
+  background-image: linear-gradient(to right, rgba(18, 19, 18, 0.95), rgba(18, 19, 18, 0.4), transparent) !important;
+}
+
+.light-mode .landing-hero h1,
+.light-mode .landing-hero .text-white {
+  color: #ffffff !important;
+}
+
+.light-mode .landing-hero p,
+.light-mode .landing-hero .text-\[\#c8c5be\],
+.light-mode .landing-hero .text-\[\#dedbd4\],
+.light-mode .landing-hero .text-\[\#a6a49f\] {
+  color: #dedbd4 !important;
+}
+
+/* Smooth theme transition */
+body, *, *::before, *::after {
+  transition-property: background-color, border-color, color;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
