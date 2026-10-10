@@ -235,7 +235,7 @@ export const LandingView: React.FC<LandingViewProps> = ({
           A single, monumental artwork hero with dramatic natural illumination,
           asymmetric title typography, clean catalog citation, and a single, dignified inquiry call-to-action.
           ========================================================================= */}
-      <section className="relative min-h-[92vh] lg:min-h-screen flex flex-col justify-between border-b border-white/[0.08] bg-[#121312] overflow-hidden pt-24 pb-12 sm:pb-16 px-6 sm:px-10 lg:px-16">
+      <section className="landing-hero relative min-h-[92vh] lg:min-h-screen flex flex-col justify-between border-b border-white/[0.08] bg-[#121312] overflow-hidden pt-24 pb-12 sm:pb-16 px-6 sm:px-10 lg:px-16">
         {/* Monumental Artwork Photography Backdrop */}
         <div className="absolute inset-0 z-0">
           {CURATED_PLATES.map((plate, index) => {
