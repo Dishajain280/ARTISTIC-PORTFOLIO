@@ -235,7 +235,7 @@ export const ArtistProfileView: React.FC<ArtistProfileViewProps> = ({
                       onClick={() => onSelectArtwork(art.id)}
                     >
                       <img
-                        src={art.imageUrl}
+                        src={art.imageUrl || (art.images && art.images[0]) || ''}
                         alt={art.title}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
@@ -361,7 +361,7 @@ export const ArtistProfileView: React.FC<ArtistProfileViewProps> = ({
             </div>
 
             <div className="bg-white border border-[#e4e2df] divide-y divide-[#eceae6]">
-              {artist.exhibitions.map((ex, idx) => (
+              {artist.exhibitions.map((ex: any, idx: number) => (
                 <div key={idx} className="p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div className="sm:w-24 flex-shrink-0 font-serif text-2xl text-[#1b1c1a]">
                     {ex.year}

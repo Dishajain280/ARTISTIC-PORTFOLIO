@@ -23,15 +23,16 @@ export const ArtworkDetailView: React.FC<ArtworkDetailViewProps> = ({
   onOpenLightbox,
 }) => {
   const artwork = ARTWORKS.find((a) => a.id === artworkId) || ARTWORKS[0];
-  const artist = ARTISTS.find((a) => a.id === artwork.artistId) || ARTISTS[0];
+  const artist = ARTISTS.find((a) => a.id === (artwork.artistId || artwork.creatorId)) || ARTISTS[0];
 
   const [activeAngleIndex, setActiveAngleIndex] = useState(0);
 
+  const primaryImg = artwork.imageUrl || (artwork.images && artwork.images[0]) || '';
   const images = [
-    { label: 'Primary View', url: artwork.imageUrl, description: artwork.title },
-    ...(artwork.alternateAngles || []).map((a) => ({
+    { label: 'Primary View', url: primaryImg, description: artwork.title },
+    ...(artwork.alternateAngles || []).map((a: any) => ({
       label: a.label,
-      url: a.imageUrl,
+      url: a.imageUrl || primaryImg,
       description: a.description,
     })),
   ];
@@ -40,7 +41,7 @@ export const ArtworkDetailView: React.FC<ArtworkDetailViewProps> = ({
 
   // Related works
   const relatedWorks = ARTWORKS.filter(
-    (a) => a.id !== artwork.id && (a.artistId === artwork.artistId || a.mediumCategory === artwork.mediumCategory)
+    (a: any) => a.id !== artwork.id && (a.artistId === artwork.artistId || a.mediumCategory === artwork.mediumCategory)
   ).slice(0, 4);
 
   return (
@@ -355,7 +356,7 @@ export const ArtworkDetailView: React.FC<ArtworkDetailViewProps> = ({
                 >
                   <div className="aspect-[4/5] bg-[#ebe7e0] overflow-hidden relative">
                     <img
-                      src={art.imageUrl}
+                      src={art.imageUrl || (art.images && art.images[0]) || ''}
                       alt={art.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />

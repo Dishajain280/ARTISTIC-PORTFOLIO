@@ -87,7 +87,7 @@ export const JournalEssayView: React.FC<JournalEssayViewProps> = ({
           "{article.excerpt}"
         </p>
 
-        {article.contentParagraphs.map((para, idx) => (
+        {article.contentParagraphs.map((para: string, idx: number) => (
           <p key={idx} className="font-serif text-lg sm:text-xl text-[#333532] leading-relaxed">
             {para}
           </p>

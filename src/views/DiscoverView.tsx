@@ -40,7 +40,7 @@ export const DiscoverView: React.FC<DiscoverViewProps> = ({
       // Discipline
       if (
         selectedDiscipline !== 'All' &&
-        art.mediumCategory.toLowerCase() !== selectedDiscipline.toLowerCase() &&
+        (art.mediumCategory || '').toLowerCase() !== selectedDiscipline.toLowerCase() &&
         !art.medium.toLowerCase().includes(selectedDiscipline.toLowerCase())
       ) {
         return false;
@@ -55,24 +55,27 @@ export const DiscoverView: React.FC<DiscoverViewProps> = ({
       }
 
       // Price Tier
-      if (priceTier === 'under1000' && art.price >= 1000) return false;
-      if (priceTier === '1000to2500' && (art.price < 1000 || art.price > 2500)) return false;
-      if (priceTier === 'over2500' && art.price <= 2500) return false;
+      const p = art.price || 0;
+      if (priceTier === 'under1000' && p >= 1000) return false;
+      if (priceTier === '1000to2500' && (p < 1000 || p > 2500)) return false;
+      if (priceTier === 'over2500' && p <= 2500) return false;
 
       // Search Query
       if (searchFilter) {
         const q = searchFilter.toLowerCase();
         return (
           art.title.toLowerCase().includes(q) ||
-          art.artistName.toLowerCase().includes(q) ||
+          (art.artistName || '').toLowerCase().includes(q) ||
           art.medium.toLowerCase().includes(q)
         );
       }
 
       return true;
     }).sort((a, b) => {
-      if (sortBy === 'priceAsc') return a.price - b.price;
-      if (sortBy === 'priceDesc') return b.price - a.price;
+      const pa = a.price || 0;
+      const pb = b.price || 0;
+      if (sortBy === 'priceAsc') return pa - pb;
+      if (sortBy === 'priceDesc') return pb - pa;
       if (sortBy === 'title') return a.title.localeCompare(b.title);
       return b.year - a.year; // 'recent'
     });

@@ -7,7 +7,10 @@ export const CURRENCY_RATES: Record<Currency, { rate: number; symbol: string; pr
   JPY: { rate: 155, symbol: '¥', prefix: '¥' },
 };
 
-export function formatPrice(amountUsd: number, currency: Currency = 'USD'): string {
+export function formatPrice(amountUsd?: number | null, currency: Currency = 'USD'): string {
+  if (amountUsd === undefined || amountUsd === null) {
+    return 'Upon Request';
+  }
   const { rate, symbol } = CURRENCY_RATES[currency] || CURRENCY_RATES.USD;
   const converted = Math.round(amountUsd * rate);
   
