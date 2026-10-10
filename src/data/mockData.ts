@@ -3,6 +3,7 @@ import { Artist, Artwork, JournalArticle } from '../types';
 export const ARTISTS: Artist[] = [
   {
     id: 'elena-rostova',
+    handle: 'elena',
     name: 'Elena Rostova',
     location: 'Kyoto & London',
     medium: 'Ceramics & Stoneware',
@@ -48,6 +49,7 @@ export const ARTISTS: Artist[] = [
   },
   {
     id: 'marcus-vane',
+    handle: 'marcus',
     name: 'Marcus Vane',
     location: 'Milan, IT',
     medium: 'Abstract Oil & Mixed Media',
@@ -70,6 +72,7 @@ export const ARTISTS: Artist[] = [
   },
   {
     id: 'aoi-tanaka',
+    handle: 'aoi',
     name: 'Aoi Tanaka',
     location: 'Copenhagen, DK',
     medium: 'Architectural Textiles & Raw Fiber',
@@ -91,6 +94,7 @@ export const ARTISTS: Artist[] = [
   },
   {
     id: 'julian-vance',
+    handle: 'julian',
     name: 'Julian Vance',
     location: 'Paris, France',
     medium: 'Fine Art Painting & Drawing',
@@ -112,6 +116,7 @@ export const ARTISTS: Artist[] = [
   },
   {
     id: 'maya-chen',
+    handle: 'maya',
     name: 'Maya Chen',
     location: 'Brooklyn, NY',
     medium: 'Spatial & Computational Media',
@@ -133,6 +138,7 @@ export const ARTISTS: Artist[] = [
   },
   {
     id: 'soren-lind',
+    handle: 'soren',
     name: 'Soren Lind',
     location: 'Copenhagen, Denmark',
     medium: 'Woodcraft & Sculptural Furniture',

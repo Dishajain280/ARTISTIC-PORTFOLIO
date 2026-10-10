@@ -16,20 +16,26 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
   currency,
 }) => {
   const [formData, setFormData] = useState({
-    name: '',
+    patronName: '',
+    representation: '',
     email: '',
     phone: '',
     cityCountry: '',
-    inquiryType: 'acquisition',
-    deliveryMethod: 'white_glove',
-    notes: '',
+    inquiryIntent: 'acquisition',
+    architecturalSetting: 'private_residence',
+    displaySpecification: 'pedestal',
+    cratingMethod: 'museum_crate',
+    curatorialNotes: '',
   });
   const [submitted, setSubmitted] = useState(false);
+  const [dossierRef, setDossierRef] = useState('');
 
   if (!isOpen || !artwork) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const refCode = `DOS-${artwork.id.substring(0, 6).toUpperCase()}-${Math.floor(1000 + Math.random() * 9000)}`;
+    setDossierRef(refCode);
     setSubmitted(true);
   };
 
@@ -39,187 +45,317 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-[#fbf9f6] border border-[#e4e2df] w-full max-w-xl max-h-[90vh] overflow-y-auto p-6 sm:p-8 relative shadow-2xl">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md animate-fadeIn">
+      <div className="bg-[#121312] border border-white/[0.08] w-full max-w-2xl max-h-[92vh] overflow-y-auto p-6 sm:p-10 relative shadow-2xl text-[#fbf9f6]">
         {/* Close Button */}
         <button
           onClick={handleReset}
-          className="absolute top-6 right-6 text-[#72787e] hover:text-[#1b1c1a] p-1"
+          className="absolute top-6 right-6 text-[#73716b] hover:text-white p-1 transition-colors"
+          aria-label="Close dossier modal"
         >
           <span className="material-symbols-outlined text-2xl">close</span>
         </button>
 
         {submitted ? (
-          <div className="py-8 text-center space-y-4">
-            <div className="w-16 h-16 mx-auto rounded-full bg-[#e8e6e1] flex items-center justify-center text-[#1b1c1a]">
-              <span className="material-symbols-outlined text-3xl">check</span>
+          <div className="py-8 text-center space-y-6">
+            <div className="w-14 h-14 mx-auto border border-[#c2623a] flex items-center justify-center text-[#c2623a]">
+              <span className="material-symbols-outlined text-2xl">check</span>
             </div>
-            <h3 className="font-serif text-2xl font-normal text-[#1b1c1a]">
-              Inquiry Dispatched to {artwork.artistName}
-            </h3>
-            <p className="text-sm text-[#575953] max-w-md mx-auto leading-relaxed">
-              Your message and acquisition interest for <strong className="font-medium text-[#1b1c1a]">"{artwork.title}"</strong> has been relayed directly to the artist's studio team. You will receive an official dossier and insured shipping breakdown within 24 hours.
+
+            <div className="space-y-2">
+              <span className="text-xs font-mono uppercase tracking-widest text-[#a6a49f]">
+                Dossier Transmitted Directly to Studio
+              </span>
+              <h3 className="font-serif text-3xl font-normal text-white">
+                Acquisition Consultation Dispatched
+              </h3>
+              <p className="text-sm text-[#a6a49f] max-w-lg mx-auto leading-relaxed font-sans">
+                Your private curatorial dossier regarding <em className="text-white font-serif">{artwork.title}</em> has been registered with the atelier director and transmitted directly to {artwork.artistName}.
+              </p>
+            </div>
+
+            {/* Archival Confirmation Card */}
+            <div className="p-6 bg-[#171817] border border-white/[0.08] text-left max-w-lg mx-auto space-y-3 font-mono text-xs">
+              <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
+                <span className="text-[#a6a49f] uppercase tracking-wider text-[11px]">Dossier Reference:</span>
+                <span className="text-[#c2623a] font-semibold">{dossierRef}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-[#a6a49f]">Masterwork:</span>
+                <span className="text-white">{artwork.title} ({artwork.year})</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-[#a6a49f]">Artist & Atelier:</span>
+                <span className="text-white">{artwork.artistName} · {artwork.artistLocation}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-[#a6a49f]">Listing Valuation:</span>
+                <span className="text-white font-semibold">{formatPrice(artwork.price, currency)}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-[#a6a49f]">Platform Take:</span>
+                <span className="text-emerald-400 font-medium">0% Sovereign (100% Artist Direct)</span>
+              </div>
+              <div className="flex items-center justify-between pt-2 border-t border-white/[0.08] text-[11px] text-[#73716b]">
+                <span>Response Protocol:</span>
+                <span>Within 24 business hours</span>
+              </div>
+            </div>
+
+            <p className="text-xs text-[#73716b] font-sans max-w-md mx-auto">
+              A private PDF condition report, verified provenance ledger, and insured freight estimate will be sent to <span className="text-white font-mono">{formData.email}</span>.
             </p>
-            <div className="p-4 bg-[#f4f2ee] border border-[#e4e2df] text-xs font-mono text-[#575953] text-left max-w-md mx-auto mt-4 space-y-1">
-              <div>Reference Code: ATL-{artwork.id.toUpperCase()}-{Date.now().toString().slice(-4)}</div>
-              <div>Custodial Escrow: 100% Artist Direct Payout</div>
-              <div>Condition Report: Authenticated by Atelier Provenance Ledger</div>
-            </div>
+
             <button
               onClick={handleReset}
-              className="mt-6 px-8 py-3 bg-[#1b1c1a] text-white text-xs uppercase tracking-widest font-mono hover:bg-[#333532] transition-colors"
+              className="px-8 py-3.5 border border-white/30 text-white text-xs uppercase tracking-widest font-mono hover:border-white hover:bg-white/5 transition-colors"
             >
-              Return to Artwork
+              Return to Catalog
             </button>
           </div>
         ) : (
           <div>
-            <div className="mb-6">
-              <span className="text-[10px] uppercase font-mono tracking-widest text-[#72787e]">
-                Direct Studio Dialogue
-              </span>
-              <h2 className="font-serif text-2xl sm:text-3xl font-medium text-[#1b1c1a] mt-1">
-                Acquisition & Studio Inquiry
+            {/* Header Lockup */}
+            <div className="mb-8 pb-6 border-b border-white/[0.08]">
+              <div className="text-xs font-mono uppercase tracking-widest text-[#c2623a] mb-2">
+                Private Curatorial Consultation
+              </div>
+              <h2 className="font-serif text-3xl sm:text-4xl font-normal text-white tracking-tight">
+                Acquisition Dossier
               </h2>
-              <div className="flex items-center gap-3 mt-3 p-3 bg-[#f4f2ee] border border-[#e4e2df]">
+              <p className="text-xs sm:text-sm text-[#a6a49f] mt-1 font-sans">
+                Confidential consultation with the atelier director. 100% of proceeds go directly to the artist.
+              </p>
+
+              {/* Artwork Summary Strip */}
+              <div className="flex items-center gap-4 mt-6 p-4 bg-[#171817] border border-white/[0.08]">
                 <img
                   src={artwork.imageUrl}
                   alt={artwork.title}
-                  className="w-14 h-14 object-cover flex-shrink-0"
+                  className="w-16 h-16 object-cover bg-black border border-white/10 shrink-0"
                 />
-                <div className="min-w-0">
-                  <p className="font-serif text-base text-[#1b1c1a] truncate font-medium">
-                    {artwork.title}
-                  </p>
-                  <p className="text-xs text-[#72787e] truncate">
-                    {artwork.artistName} • {artwork.medium}
-                  </p>
-                  <p className="text-xs font-mono font-medium text-[#1b1c1a] mt-0.5">
-                    {formatPrice(artwork.price, currency)}
-                  </p>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center justify-between">
+                    <span className="font-serif text-lg text-white font-normal truncate">
+                      {artwork.title}
+                    </span>
+                    <span className="font-mono text-xs font-semibold text-white ml-2 shrink-0">
+                      {formatPrice(artwork.price, currency)}
+                    </span>
+                  </div>
+                  <div className="text-xs text-[#a6a49f] mt-0.5 truncate">
+                    {artwork.artistName} · {artwork.artistLocation}
+                  </div>
+                  <div className="text-[11px] font-mono text-[#73716b] mt-1 truncate">
+                    {artwork.medium} · {artwork.dimensions || 'Dimensions on ledger'}
+                  </div>
                 </div>
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-[11px] uppercase tracking-wider font-mono text-[#575953] mb-1">
-                    Your Full Name *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="e.g. Lady Clara Sterling"
-                    className="w-full px-3 py-2 bg-white border border-[#d2cfc9] text-sm text-[#1b1c1a] focus:outline-none focus:border-[#1b1c1a]"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[11px] uppercase tracking-wider font-mono text-[#575953] mb-1">
-                    Email Address *
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder="patron@estate.org"
-                    className="w-full px-3 py-2 bg-white border border-[#d2cfc9] text-sm text-[#1b1c1a] focus:outline-none focus:border-[#1b1c1a]"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-[11px] uppercase tracking-wider font-mono text-[#575953] mb-1">
-                    City & Country of Delivery
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.cityCountry}
-                    onChange={(e) => setFormData({ ...formData, cityCountry: e.target.value })}
-                    placeholder="e.g. Geneva, Switzerland"
-                    className="w-full px-3 py-2 bg-white border border-[#d2cfc9] text-sm text-[#1b1c1a] focus:outline-none focus:border-[#1b1c1a]"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[11px] uppercase tracking-wider font-mono text-[#575953] mb-1">
-                    Inquiry Intent
-                  </label>
-                  <select
-                    value={formData.inquiryType}
-                    onChange={(e) => setFormData({ ...formData, inquiryType: e.target.value })}
-                    className="w-full px-3 py-2 bg-white border border-[#d2cfc9] text-sm text-[#1b1c1a] focus:outline-none focus:border-[#1b1c1a]"
-                  >
-                    <option value="acquisition">Direct Piece Acquisition</option>
-                    <option value="curatorial">Curatorial / Institutional Loan</option>
-                    <option value="commission">Custom Studio Commission</option>
-                    <option value="studio_visit">Private Atelier Studio Visit</option>
-                  </select>
-                </div>
-              </div>
-
+            {/* Consultation Form */}
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Section 1: Patron & Representation */}
               <div>
-                <label className="block text-[11px] uppercase tracking-wider font-mono text-[#575953] mb-1">
-                  Logistical & Handling Preference
-                </label>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-                  <label className={`p-3 border cursor-pointer flex items-start gap-2 ${formData.deliveryMethod === 'white_glove' ? 'border-[#1b1c1a] bg-[#f4f2ee]' : 'border-[#d2cfc9] bg-white'}`}>
+                <h3 className="text-xs font-mono uppercase tracking-widest text-white mb-3">
+                  1. Patron & Representation
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-[11px] font-mono text-[#a6a49f] mb-1">
+                      Full Name *
+                    </label>
                     <input
-                      type="radio"
-                      name="deliveryMethod"
-                      value="white_glove"
-                      checked={formData.deliveryMethod === 'white_glove'}
-                      onChange={() => setFormData({ ...formData, deliveryMethod: 'white_glove' })}
-                      className="mt-0.5"
+                      type="text"
+                      required
+                      value={formData.patronName}
+                      onChange={(e) => setFormData({ ...formData, patronName: e.target.value })}
+                      placeholder="e.g. Lady Clara Sterling"
+                      className="w-full px-3.5 py-2.5 bg-[#171817] border border-white/[0.08] text-xs sm:text-sm text-white placeholder-[#73716b] focus:outline-none focus:border-[#c2623a]"
                     />
-                    <div>
-                      <span className="font-medium text-[#1b1c1a]">Museum-Grade White Glove</span>
-                      <p className="text-[#72787e] text-[11px] mt-0.5">Custom timber crating, temperature controlled, climate insured.</p>
-                    </div>
-                  </label>
-                  <label className={`p-3 border cursor-pointer flex items-start gap-2 ${formData.deliveryMethod === 'studio_pickup' ? 'border-[#1b1c1a] bg-[#f4f2ee]' : 'border-[#d2cfc9] bg-white'}`}>
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-mono text-[#a6a49f] mb-1">
+                      Representation / Entity
+                    </label>
                     <input
-                      type="radio"
-                      name="deliveryMethod"
-                      value="studio_pickup"
-                      checked={formData.deliveryMethod === 'studio_pickup'}
-                      onChange={() => setFormData({ ...formData, deliveryMethod: 'studio_pickup' })}
-                      className="mt-0.5"
+                      type="text"
+                      value={formData.representation}
+                      onChange={(e) => setFormData({ ...formData, representation: e.target.value })}
+                      placeholder="Private Collection / Architectural Studio"
+                      className="w-full px-3.5 py-2.5 bg-[#171817] border border-white/[0.08] text-xs sm:text-sm text-white placeholder-[#73716b] focus:outline-none focus:border-[#c2623a]"
                     />
-                    <div>
-                      <span className="font-medium text-[#1b1c1a]">Personal Studio Collection</span>
-                      <p className="text-[#72787e] text-[11px] mt-0.5">Collect directly from artist's studio in {artwork.artistLocation}.</p>
-                    </div>
-                  </label>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-3">
+                  <div>
+                    <label className="block text-[11px] font-mono text-[#a6a49f] mb-1">
+                      Contact Email *
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      placeholder="patron@estate.org"
+                      className="w-full px-3.5 py-2.5 bg-[#171817] border border-white/[0.08] text-xs sm:text-sm text-white placeholder-[#73716b] focus:outline-none focus:border-[#c2623a]"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-mono text-[#a6a49f] mb-1">
+                      Telephone / Courier Contact
+                    </label>
+                    <input
+                      type="tel"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      placeholder="+41 22 819 00 00"
+                      className="w-full px-3.5 py-2.5 bg-[#171817] border border-white/[0.08] text-xs sm:text-sm text-white placeholder-[#73716b] focus:outline-none focus:border-[#c2623a]"
+                    />
+                  </div>
                 </div>
               </div>
 
-              <div>
-                <label className="block text-[11px] uppercase tracking-wider font-mono text-[#575953] mb-1">
-                  Private Note to Artist
-                </label>
+              {/* Section 2: Architectural Placement & Setting */}
+              <div className="pt-2 border-t border-white/10">
+                <h3 className="text-xs font-mono uppercase tracking-widest text-white mb-3">
+                  2. Architectural Setting & Display
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-[11px] font-mono text-[#a6a49f] mb-1">
+                      Architectural Setting
+                    </label>
+                    <select
+                      value={formData.architecturalSetting}
+                      onChange={(e) => setFormData({ ...formData, architecturalSetting: e.target.value })}
+                      className="w-full px-3.5 py-2.5 bg-[#171817] border border-white/[0.08] text-xs font-mono text-white focus:outline-none focus:border-[#c2623a]"
+                    >
+                      <option value="private_residence">Private Residence · Salon or Living Pavilion</option>
+                      <option value="architectural_project">Architectural Project / Bespoke Interior</option>
+                      <option value="institutional_collection">Museum / Institutional Permanent Collection</option>
+                      <option value="corporate_atrium">Corporate Collection / Executive Atrium</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-mono text-[#a6a49f] mb-1">
+                      Mounting / Plinth Specification
+                    </label>
+                    <select
+                      value={formData.displaySpecification}
+                      onChange={(e) => setFormData({ ...formData, displaySpecification: e.target.value })}
+                      className="w-full px-3.5 py-2.5 bg-[#171817] border border-white/[0.08] text-xs font-mono text-white focus:outline-none focus:border-[#c2623a]"
+                    >
+                      <option value="pedestal">Freestanding Pedestal / Plinth</option>
+                      <option value="niche">Architectural Niche / Recessed Shelf</option>
+                      <option value="wall_mount">Direct Wall Cantilever Mount</option>
+                      <option value="vitrine">Climate-Regulated Vitrine</option>
+                      <option value="custom_artist_plinth">Request Custom Plinth Carved by Artist</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              {/* Section 3: Delivery Logistics & Crate Handling */}
+              <div className="pt-2 border-t border-white/10">
+                <h3 className="text-xs font-mono uppercase tracking-widest text-white mb-3">
+                  3. Logistics & Crate Handling
+                </h3>
+                <div className="space-y-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                    <label
+                      className={`p-3.5 border cursor-pointer flex items-start gap-3 transition-colors ${
+                        formData.cratingMethod === 'museum_crate'
+                          ? 'border-[#c2623a] bg-[#171817]'
+                          : 'border-white/[0.08] bg-[#121312] hover:border-white/20'
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="cratingMethod"
+                        value="museum_crate"
+                        checked={formData.cratingMethod === 'museum_crate'}
+                        onChange={() => setFormData({ ...formData, cratingMethod: 'museum_crate' })}
+                        className="mt-0.5 accent-[#c2623a]"
+                      />
+                      <div>
+                        <span className="font-mono text-white block">Museum-Grade Timber Crating</span>
+                        <p className="text-[#a6a49f] text-[11px] mt-1 font-sans">
+                          Custom-fitted kiln-dried timber, archival foam lining, insured fine-art courier.
+                        </p>
+                      </div>
+                    </label>
+
+                    <label
+                      className={`p-3.5 border cursor-pointer flex items-start gap-3 transition-colors ${
+                        formData.cratingMethod === 'studio_visit'
+                          ? 'border-[#c2623a] bg-[#171817]'
+                          : 'border-white/[0.08] bg-[#121312] hover:border-white/20'
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="cratingMethod"
+                        value="studio_visit"
+                        checked={formData.cratingMethod === 'studio_visit'}
+                        onChange={() => setFormData({ ...formData, cratingMethod: 'studio_visit' })}
+                        className="mt-0.5 accent-[#c2623a]"
+                      />
+                      <div>
+                        <span className="font-mono text-white block">Private Studio Handover</span>
+                        <p className="text-[#a6a49f] text-[11px] mt-1 font-sans">
+                          Arrange personal studio visit and handover with the artist in {artwork.artistLocation}.
+                        </p>
+                      </div>
+                    </label>
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-mono text-[#a6a49f] mb-1">
+                      Destination City & Country *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.cityCountry}
+                      onChange={(e) => setFormData({ ...formData, cityCountry: e.target.value })}
+                      placeholder="e.g. Zurich, Switzerland or Milan, Italy"
+                      className="w-full px-3.5 py-2.5 bg-[#171817] border border-white/[0.08] text-xs sm:text-sm text-white placeholder-[#73716b] focus:outline-none focus:border-[#c2623a]"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Section 4: Curatorial Consultation Notes */}
+              <div className="pt-2 border-t border-white/10">
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="text-xs font-mono uppercase tracking-widest text-white">
+                    4. Curatorial Note to the Atelier
+                  </h3>
+                  <span className="text-[11px] font-mono text-[#73716b]">Optional</span>
+                </div>
                 <textarea
                   rows={3}
-                  value={formData.notes}
-                  onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                  placeholder="Inquire regarding physical inspection, custom plinths, or collection placement..."
-                  className="w-full px-3 py-2 bg-white border border-[#d2cfc9] text-sm text-[#1b1c1a] focus:outline-none focus:border-[#1b1c1a] resize-none"
+                  value={formData.curatorialNotes}
+                  onChange={(e) => setFormData({ ...formData, curatorialNotes: e.target.value })}
+                  placeholder="Detail inquiries on lighting orientation, conservation documentation, or private studio visit schedule..."
+                  className="w-full px-3.5 py-2.5 bg-[#171817] border border-white/[0.08] text-xs sm:text-sm text-white placeholder-[#73716b] focus:outline-none focus:border-[#c2623a] resize-none"
                 />
               </div>
 
-              <div className="pt-2 flex items-center justify-between gap-4">
-                <span className="text-[11px] text-[#72787e] font-sans">
-                  Guaranteed 0% secondary gallery surcharges.
-                </span>
+              {/* Form Action */}
+              <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="text-xs font-mono text-[#73716b] text-center sm:text-left">
+                  <span>100% Artist Direct Proceeds</span>
+                  <span className="mx-2">·</span>
+                  <span>Zero Gallery Surcharge</span>
+                </div>
                 <button
                   type="submit"
-                  className="px-6 py-3 bg-[#1b1c1a] text-white text-xs uppercase tracking-widest font-mono hover:bg-[#333532] transition-colors"
+                  className="w-full sm:w-auto px-8 py-3.5 border border-[#c2623a] bg-[#c2623a] text-white text-xs font-mono uppercase tracking-widest hover:bg-[#d67248] transition-colors"
                 >
-                  Send Inquiry
+                  Transmit Curatorial Dossier
                 </button>
               </div>
             </form>

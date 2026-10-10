@@ -79,43 +79,43 @@ export const SearchModal: React.FC<SearchModalProps> = ({
     : JOURNAL_ARTICLES.slice(0, 2);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 bg-black/50 backdrop-blur-sm transition-opacity">
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 bg-black/80 backdrop-blur-md transition-opacity">
       <div
-        className="w-full max-w-2xl bg-[#fbf9f6] border border-[#e4e2df] rounded-none shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150"
+        className="w-full max-w-2xl bg-[#121312] border border-white/[0.08] rounded-none shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150 text-[#fbf9f6]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Search Input Bar */}
-        <div className="flex items-center px-6 py-4 border-b border-[#e4e2df] bg-[#ffffff]">
-          <span className="material-symbols-outlined text-[#72787e] mr-3 text-2xl">search</span>
+        <div className="flex items-center px-6 py-4.5 border-b border-white/[0.08] bg-[#171817]">
+          <span className="material-symbols-outlined text-[#c2623a] mr-3 text-2xl">search</span>
           <input
             ref={inputRef}
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search artworks, artists, ceramics, oil painting, essays..."
-            className="w-full bg-transparent text-base text-[#1b1c1a] placeholder-[#8d9196] focus:outline-none font-sans"
+            className="w-full bg-transparent text-base text-[#fbf9f6] placeholder-[#73716b] focus:outline-none font-sans"
           />
           {query && (
             <button
               onClick={() => setQuery('')}
-              className="text-[#72787e] hover:text-[#1b1c1a] p-1"
+              className="text-[#73716b] hover:text-white p-1 transition-colors"
             >
               <span className="material-symbols-outlined text-lg">close</span>
             </button>
           )}
-          <kbd className="hidden sm:inline-block ml-3 px-2 py-0.5 text-[10px] uppercase font-mono tracking-wider text-[#72787e] bg-[#f4f2ee] border border-[#e4e2df]">
+          <kbd className="hidden sm:inline-block ml-3 px-2 py-0.5 text-[10px] uppercase font-mono tracking-wider text-[#a6a49f] bg-white/10 border border-white/15">
             ESC
           </kbd>
         </div>
 
         {/* Results Container */}
-        <div className="max-h-[60vh] overflow-y-auto p-6 space-y-6 divide-y divide-[#eceae6]">
+        <div className="max-h-[60vh] overflow-y-auto p-6 space-y-6 divide-y divide-white/10">
           {/* Artworks */}
           {filteredArtworks.length > 0 && (
             <div className="pt-2 first:pt-0">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-[11px] uppercase tracking-[0.2em] font-medium text-[#72787e]">
-                  Artworks ({filteredArtworks.length})
+                <span className="text-[11px] uppercase tracking-[0.2em] font-medium text-[#c2623a]">
+                  Catalog Specimens ({filteredArtworks.length})
                 </span>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -126,19 +126,19 @@ export const SearchModal: React.FC<SearchModalProps> = ({
                       onSelectArtwork(art.id);
                       onClose();
                     }}
-                    className="flex items-center gap-3 p-2 group text-left hover:bg-[#f4f2ee] transition-colors border border-transparent hover:border-[#e4e2df]"
+                    className="flex items-center gap-3 p-2.5 group text-left bg-[#171817] hover:bg-white/[0.06] transition-colors border border-white/10 hover:border-white/25"
                   >
                     <img
                       src={art.imageUrl}
                       alt={art.title}
-                      className="w-14 h-14 object-cover flex-shrink-0 bg-[#e4e2df]"
+                      className="w-14 h-14 object-cover flex-shrink-0 bg-[#121312] border border-white/10"
                     />
                     <div className="min-w-0">
-                      <p className="font-serif text-sm font-medium text-[#1b1c1a] truncate group-hover:underline">
+                      <p className="font-serif text-sm font-medium text-[#fbf9f6] truncate group-hover:text-[#f5c28e] transition-colors">
                         {art.title}
                       </p>
-                      <p className="text-xs text-[#72787e] truncate">{art.artistName}</p>
-                      <p className="text-xs font-mono text-[#575953] mt-0.5">
+                      <p className="text-xs text-[#a6a49f] truncate">{art.artistName}</p>
+                      <p className="text-xs font-mono text-[#f5c28e] mt-0.5">
                         {formatPrice(art.price, currency)}
                       </p>
                     </div>
@@ -152,8 +152,8 @@ export const SearchModal: React.FC<SearchModalProps> = ({
           {filteredArtists.length > 0 && (
             <div className="pt-4">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-[11px] uppercase tracking-[0.2em] font-medium text-[#72787e]">
-                  Artists & Ateliers ({filteredArtists.length})
+                <span className="text-[11px] uppercase tracking-[0.2em] font-medium text-[#c2623a]">
+                  Monograph Artists ({filteredArtists.length})
                 </span>
               </div>
               <div className="space-y-2">
@@ -164,24 +164,24 @@ export const SearchModal: React.FC<SearchModalProps> = ({
                       onSelectArtist(artist.id);
                       onClose();
                     }}
-                    className="w-full flex items-center justify-between p-2.5 group hover:bg-[#f4f2ee] transition-colors border border-transparent hover:border-[#e4e2df] text-left"
+                    className="w-full flex items-center justify-between p-2.5 group bg-[#171817] hover:bg-white/[0.06] transition-colors border border-white/10 hover:border-white/25 text-left"
                   >
                     <div className="flex items-center gap-3">
                       <img
                         src={artist.avatarUrl}
                         alt={artist.name}
-                        className="w-10 h-10 rounded-full object-cover"
+                        className="w-10 h-10 object-cover border border-white/15"
                       />
                       <div>
-                        <p className="font-serif text-sm font-medium text-[#1b1c1a] group-hover:underline">
+                        <p className="font-serif text-sm font-medium text-[#fbf9f6] group-hover:text-[#f5c28e] transition-colors">
                           {artist.name}
                         </p>
-                        <p className="text-xs text-[#72787e]">
+                        <p className="text-xs text-[#a6a49f]">
                           {artist.discipline} • {artist.location}
                         </p>
                       </div>
                     </div>
-                    <span className="text-xs font-mono text-[#72787e]">
+                    <span className="text-xs font-mono text-[#73716b]">
                       {artist.artworksCount} pieces
                     </span>
                   </button>
@@ -194,7 +194,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({
           {filteredArticles.length > 0 && (
             <div className="pt-4">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-[11px] uppercase tracking-[0.2em] font-medium text-[#72787e]">
+                <span className="text-[11px] uppercase tracking-[0.2em] font-medium text-[#c2623a]">
                   Journal Dispatches ({filteredArticles.length})
                 </span>
               </div>
@@ -206,18 +206,18 @@ export const SearchModal: React.FC<SearchModalProps> = ({
                       onSelectJournal(article.id);
                       onClose();
                     }}
-                    className="w-full flex items-center gap-3 p-2 group hover:bg-[#f4f2ee] transition-colors border border-transparent hover:border-[#e4e2df] text-left"
+                    className="w-full flex items-center gap-3 p-2.5 group bg-[#171817] hover:bg-white/[0.06] transition-colors border border-white/10 hover:border-white/25 text-left"
                   >
                     <img
                       src={article.imageUrl}
                       alt={article.title}
-                      className="w-12 h-12 object-cover flex-shrink-0"
+                      className="w-12 h-12 object-cover flex-shrink-0 border border-white/10"
                     />
                     <div className="min-w-0">
-                      <p className="font-serif text-sm font-medium text-[#1b1c1a] truncate group-hover:underline">
+                      <p className="font-serif text-sm font-medium text-[#fbf9f6] truncate group-hover:text-[#f5c28e] transition-colors">
                         {article.title}
                       </p>
-                      <p className="text-xs text-[#72787e] truncate">
+                      <p className="text-xs text-[#a6a49f] truncate">
                         {article.category} • {article.readTime}
                       </p>
                     </div>
@@ -230,9 +230,9 @@ export const SearchModal: React.FC<SearchModalProps> = ({
           {filteredArtworks.length === 0 &&
             filteredArtists.length === 0 &&
             filteredArticles.length === 0 && (
-              <div className="py-12 text-center text-[#72787e]">
-                <p className="font-serif text-lg text-[#1b1c1a]">No results found for "{query}"</p>
-                <p className="text-xs mt-1">
+              <div className="py-12 text-center text-[#73716b]">
+                <p className="font-serif text-lg text-[#fbf9f6]">No results found for "{query}"</p>
+                <p className="text-xs mt-1 text-[#a6a49f]">
                   Try searching for "stoneware", "Elena", "oil", or "minimalist".
                 </p>
               </div>
@@ -240,13 +240,13 @@ export const SearchModal: React.FC<SearchModalProps> = ({
         </div>
 
         {/* Modal Footer */}
-        <div className="px-6 py-3 bg-[#f4f2ee] border-t border-[#e4e2df] flex items-center justify-between text-xs text-[#72787e]">
-          <span>Quick monograph lookup</span>
+        <div className="px-6 py-3.5 bg-[#171817] border-t border-white/[0.08] flex items-center justify-between text-xs text-[#73716b]">
+          <span className="font-mono">Quick monograph index lookup</span>
           <button
             onClick={onClose}
-            className="hover:text-[#1b1c1a] font-medium transition-colors"
+            className="hover:text-white font-mono uppercase tracking-wider transition-colors"
           >
-            Close Window
+            Close Window [ESC]
           </button>
         </div>
       </div>

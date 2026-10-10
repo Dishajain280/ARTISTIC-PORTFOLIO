@@ -17,50 +17,50 @@ export const JournalEssayView: React.FC<JournalEssayViewProps> = ({
   const related = JOURNAL_ARTICLES.filter((a) => a.id !== article.id).slice(0, 2);
 
   return (
-    <article className="min-h-screen bg-[#fbf9f6] text-[#1b1c1a] pt-24 pb-24">
+    <article className="min-h-screen bg-[#121312] text-[#fbf9f6] pt-24 pb-24 selection:bg-[#c2623a] selection:text-white">
       {/* Header & Breadcrumb */}
       <div className="max-w-4xl mx-auto px-4 sm:px-8 pt-8">
         <button
           onClick={() => onNavigate('journal')}
-          className="text-xs font-mono uppercase tracking-widest text-[#72787e] hover:text-[#1b1c1a] flex items-center gap-1.5 mb-8"
+          className="text-xs font-mono uppercase tracking-widest text-[#a6a49f] hover:text-white flex items-center gap-1.5 mb-8 transition-colors"
         >
           <span className="material-symbols-outlined text-sm">arrow_back</span>
           <span>Back to All Dispatches</span>
         </button>
 
         <div className="space-y-4 text-center sm:text-left">
-          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 text-xs font-mono text-[#72787e]">
-            <span className="text-[#1b1c1a] font-semibold">{article.dispatchNumber}</span>
-            <span>•</span>
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 text-xs font-mono text-[#a6a49f]">
+            <span className="text-white font-semibold">{article.dispatchNumber}</span>
+            <span aria-hidden="true">·</span>
             <span>{article.category}</span>
-            <span>•</span>
+            <span aria-hidden="true">·</span>
             <span>{article.readTime}</span>
             {article.temperature && (
               <>
-                <span>•</span>
+                <span aria-hidden="true">·</span>
                 <span>{article.temperature}</span>
               </>
             )}
           </div>
 
-          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-normal text-[#1b1c1a] leading-[1.1]">
+          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-normal text-[#fbf9f6] leading-[1.1] tracking-tight">
             {article.title}
           </h1>
 
           {article.subtitle && (
-            <p className="font-mono text-sm sm:text-base text-[#72787e] tracking-wide">
+            <p className="font-mono text-sm sm:text-base text-[#a6a49f] tracking-wide">
               {article.subtitle}
             </p>
           )}
 
-          <div className="pt-6 border-t border-[#e4e2df] flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-[#575953]">
+          <div className="pt-6 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-[#73716b]">
             <div>
-              <span className="text-[#1b1c1a] font-medium">Text: {article.author}</span>
-              <span className="text-[#72787e] ml-2">({article.authorRole})</span>
+              <span className="text-white font-medium">Text: {article.author}</span>
+              <span className="text-[#a6a49f] ml-2">({article.authorRole})</span>
             </div>
             {article.photographer && (
-              <div className="text-[#72787e]">
-                Photography: <span className="text-[#1b1c1a]">{article.photographer}</span>
+              <div className="text-[#a6a49f]">
+                Photography: <span className="text-white">{article.photographer}</span>
               </div>
             )}
           </div>
@@ -69,73 +69,57 @@ export const JournalEssayView: React.FC<JournalEssayViewProps> = ({
 
       {/* Hero Essay Image */}
       <div className="max-w-5xl mx-auto px-4 sm:px-8 my-12">
-        <div className="aspect-[16/9] bg-[#ebe7e0] overflow-hidden border border-[#e4e2df] shadow-sm">
+        <div className="aspect-[16/9] bg-[#121312] overflow-hidden border border-white/[0.08] shadow-2xl">
           <img
             src={article.imageUrl}
             alt={article.title}
             className="w-full h-full object-cover"
           />
         </div>
-        <p className="text-xs font-mono text-[#72787e] mt-2 italic text-center sm:text-left">
+        <p className="text-xs font-mono text-[#73716b] mt-3 italic text-center sm:text-left">
           Documented during fieldwork on location. Preserved in the Atelier Archival Collection.
         </p>
       </div>
 
       {/* Essay Typography Body */}
-      <div className="max-w-3xl mx-auto px-4 sm:px-8 space-y-6 text-[#2a2c29]">
-        <p className="font-serif text-2xl sm:text-3xl text-[#1b1c1a] italic leading-relaxed border-l-2 border-[#1b1c1a] pl-6 py-2 my-8">
+      <div className="max-w-3xl mx-auto px-4 sm:px-8 space-y-6 text-[#e4e2df]">
+        <p className="font-serif text-2xl sm:text-3xl text-[#fbf9f6] italic leading-relaxed border-y border-white/10 py-6 my-10 text-center sm:text-left">
           "{article.excerpt}"
         </p>
 
-        {article.contentParagraphs.map((para: string, idx: number) => (
-          <p key={idx} className="font-serif text-lg sm:text-xl text-[#333532] leading-relaxed">
+        {article.contentParagraphs.map((para, idx) => (
+          <p key={idx} className="font-serif text-lg sm:text-xl text-[#d5d3ce] leading-relaxed">
             {para}
           </p>
         ))}
 
-        <div className="p-6 bg-[#f4f2ee] border border-[#e4e2df] text-xs font-mono text-[#575953] space-y-2 my-10">
-          <p className="font-semibold text-[#1b1c1a]">About the Author</p>
-          <p>
+        <div className="p-6 sm:p-8 bg-[#171817] border border-white/[0.08] text-xs font-mono text-[#a6a49f] space-y-2 my-12 shadow-xl">
+          <p className="font-semibold text-white uppercase tracking-wider">About the Author</p>
+          <p className="font-sans text-sm leading-relaxed text-[#a6a49f]">
             {article.author} writes for international ceramic monographs, museum catalogues, and material ethnographies. Based between Kyoto and Oxford.
           </p>
         </div>
-      </div>
 
-      {/* Further Dispatches Section */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-8 pt-16 border-t border-[#e4e2df] mt-16">
-        <div className="flex items-center justify-between mb-8">
-          <h3 className="font-serif text-2xl font-normal text-[#1b1c1a]">Further Dispatches</h3>
-          <button
-            onClick={() => onNavigate('journal')}
-            className="text-xs font-mono uppercase tracking-widest text-[#1b1c1a] hover:underline"
-          >
-            All Essays →
-          </button>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {related.map((item) => (
-            <div
-              key={item.id}
-              onClick={() => onSelectJournal(item.id)}
-              className="p-5 bg-white border border-[#e4e2df] cursor-pointer group hover:shadow-md transition-all"
-            >
-              <div className="aspect-[16/10] bg-[#ebe7e0] overflow-hidden mb-3">
-                <img
-                  src={item.imageUrl}
-                  alt={item.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
+        {/* Footer Navigation: Next Dispatches */}
+        <div className="pt-12 border-t border-white/[0.08]">
+          <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-[#a6a49f] mb-6">
+            Recommended Dispatches
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {related.map((rel) => (
+              <div
+                key={rel.id}
+                onClick={() => onSelectJournal(rel.id)}
+                className="group cursor-pointer p-4 bg-[#171817] border border-white/[0.08] hover:border-white/30 transition-all shadow-md"
+              >
+                <span className="text-[11px] font-mono text-[#f5c28e]">{rel.dispatchNumber}</span>
+                <h4 className="font-serif text-lg font-medium text-[#fbf9f6] group-hover:text-[#f5c28e] mt-1 transition-colors">
+                  {rel.title}
+                </h4>
+                <p className="text-xs text-[#a6a49f] mt-1 line-clamp-2">{rel.excerpt}</p>
               </div>
-              <span className="text-[10px] font-mono uppercase tracking-wider text-[#72787e]">
-                {item.dispatchNumber} • {item.category}
-              </span>
-              <h4 className="font-serif text-lg font-medium text-[#1b1c1a] group-hover:underline mt-1">
-                {item.title}
-              </h4>
-              <p className="text-xs text-[#575953] mt-1 line-clamp-2">{item.excerpt}</p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </article>

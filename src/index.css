@@ -3,55 +3,43 @@
 @theme {
   --font-serif: "EB Garamond", Georgia, serif;
   --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
-  --color-surface: #fbf9f6;
-  --color-surface-dim: #dbdad7;
-  --color-surface-bright: #fbf9f6;
-  --color-surface-container-lowest: #ffffff;
-  --color-surface-container-low: #f5f3f0;
-  --color-surface-container: #efeeeb;
-  --color-surface-container-high: #eae8e5;
-  --color-surface-container-highest: #e4e2df;
+  --color-surface: #171817;
+  --color-surface-dim: #121312;
+  --color-surface-bright: #1f201f;
+  --color-surface-container-lowest: #101110;
+  --color-surface-container-low: #141514;
+  --color-surface-container: #171817;
+  --color-surface-container-high: #1a1b1a;
+  --color-surface-container-highest: #1f201f;
 
-  --color-background: #fbf9f6;
-  --color-on-background: #1b1c1a;
-  --color-on-surface: #1b1c1a;
-  --color-on-surface-variant: #444748;
+  --color-background: #121312;
+  --color-on-background: #f7f5f0;
+  --color-on-surface: #f7f5f0;
+  --color-on-surface-variant: #a6a49f;
 
-  --color-inverse-surface: #30312f;
-  --color-inverse-on-surface: #f2f0ed;
+  --color-inverse-surface: #f7f5f0;
+  --color-inverse-on-surface: #121312;
 
-  --color-outline: #747878;
-  --color-outline-variant: #c4c7c7;
+  --color-outline: rgba(255, 255, 255, 0.08);
+  --color-outline-variant: rgba(255, 255, 255, 0.12);
 
-  --color-primary: #161616;
-  --color-on-primary: #ffffff;
-  --color-primary-container: #1c1b1b;
-  --color-on-primary-container: #858383;
-  --color-primary-fixed: #e5e2e1;
-  --color-primary-fixed-dim: #c8c6c5;
-
-  --color-secondary: #99452d;
-  --color-on-secondary: #ffffff;
-  --color-secondary-container: #fe9476;
-  --color-secondary-fixed: #ffdbd1;
-  --color-secondary-fixed-dim: #ffb5a0;
-  --color-on-secondary-container: #762b15;
-
-  --color-tertiary-container: #161e12;
-  --color-on-tertiary-container: #7e8677;
-  --color-tertiary-fixed: #dde5d3;
-  --color-tertiary-fixed-dim: #c1c9b8;
-
-  --color-error: #ba1a1a;
-  --color-on-error: #ffffff;
+  --color-primary: #f7f5f0;
+  --color-on-primary: #121312;
+  
+  /* Complementary Accent: Venetian Terracotta strictly for primary acquisition & active states */
+  --color-accent: #9A3412;
+  --color-on-accent: #ffffff;
+  
+  --color-error: #f87171;
 }
 
 @layer base {
   body {
     font-family: var(--font-sans);
-    background-color: var(--color-surface);
-    color: var(--color-on-surface);
+    background-color: #121312;
+    color: #f7f5f0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }

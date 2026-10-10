@@ -57,14 +57,14 @@ export const LightboxModal: React.FC<LightboxModalProps> = ({
           <h3 className="font-serif text-lg tracking-wide text-[#fbf9f6]">
             {artwork.title}
           </h3>
-          <p className="text-xs text-[#a0a39f] font-sans">
-            {artwork.artistName} • {currentImage.label}
+          <p className="text-xs text-[#a6a49f] font-sans">
+            {artwork.artistName} <span aria-hidden="true">·</span> {currentImage.label}
           </p>
         </div>
 
         {/* Controls */}
         <div className="flex items-center gap-3">
-          <div className="flex items-center bg-[#242624] border border-[#3e413e] px-2 py-1 text-xs font-mono">
+          <div className="flex items-center bg-[#171817] border border-white/[0.08] px-2 py-1 text-xs font-mono">
             <button
               onClick={handleZoomOut}
               disabled={zoomLevel <= 1}
@@ -85,7 +85,7 @@ export const LightboxModal: React.FC<LightboxModalProps> = ({
             {zoomLevel > 1 && (
               <button
                 onClick={handleResetZoom}
-                className="ml-2 text-[10px] uppercase text-[#a0a39f] hover:text-white"
+                className="ml-2 text-[10px] uppercase font-mono text-[#c2623a] hover:text-[#d67248]"
               >
                 Reset
               </button>
@@ -94,7 +94,7 @@ export const LightboxModal: React.FC<LightboxModalProps> = ({
 
           <button
             onClick={onClose}
-            className="w-9 h-9 flex items-center justify-center bg-[#242624] border border-[#3e413e] hover:bg-[#343734] transition-colors"
+            className="w-9 h-9 flex items-center justify-center bg-[#171817] border border-white/[0.08] hover:bg-white/10 transition-colors"
             title="Close"
           >
             <span className="material-symbols-outlined text-lg">close</span>
@@ -124,8 +124,8 @@ export const LightboxModal: React.FC<LightboxModalProps> = ({
       </div>
 
       {/* Bottom Bar: Alternate Views Thumbnails & Caption */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[#2e312e] pt-4 z-10">
-        <p className="text-xs text-[#a0a39f] font-serif italic max-w-md truncate">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-white/10 pt-4 z-10">
+        <p className="text-xs text-[#a6a49f] font-serif italic max-w-md truncate">
           {currentImage.description}
         </p>
 
@@ -140,8 +140,8 @@ export const LightboxModal: React.FC<LightboxModalProps> = ({
                 }}
                 className={`relative flex-shrink-0 w-14 h-14 border transition-all ${
                   selectedImageIndex === idx
-                    ? 'border-white ring-1 ring-white'
-                    : 'border-[#3e413e] opacity-60 hover:opacity-100'
+                    ? 'border-[#c2623a] ring-1 ring-[#c2623a]'
+                    : 'border-white/15 opacity-60 hover:opacity-100 hover:border-white/30'
                 }`}
               >
                 <img
